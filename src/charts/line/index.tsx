@@ -7,34 +7,34 @@ import ErrorBoundary from '../errorBoundary';
 import ChartLoading from '../util/createLoading';
 
 export interface LineConfig extends G2plotConfig, ContainerConfig<G2plotConfig> {
-    chartRef?: ChartRefConfig;
+  chartRef?: ChartRefConfig;
 }
 
 const LineChart = forwardRef((props: LineConfig, ref) => {
-    const {
-        chartRef,
-        style = {
-            height: 'inherit',
-        },
-        className,
-        loading,
-        loadingTemplate,
-        errorTemplate,
-        ...rest
-    } = props;
-    const { chart, container } = useChart<G2plotLine, LineConfig>(G2plotLine, rest);
-    useEffect(() => {
-        getChart(chartRef, chart.current);
-    }, [chart, chartRef]);
-    useImperativeHandle(ref, () => ({
-        getChart: () => chart.current,
-    }));
-    return (
-        <ErrorBoundary errorTemplate={errorTemplate}>
-            {loading && <ChartLoading loadingTemplate={loadingTemplate} />}
-            <div className={className} style={style} ref={container} />
-        </ErrorBoundary>
-    );
+  const {
+    chartRef,
+    style = {
+      height: 'inherit',
+    },
+    className,
+    loading,
+    loadingTemplate,
+    errorTemplate,
+    ...rest
+  } = props;
+  const { chart, container } = useChart<G2plotLine, LineConfig>(G2plotLine, rest);
+  useEffect(() => {
+    getChart(chartRef, chart.current);
+  }, [chart, chartRef]);
+  useImperativeHandle(ref, () => ({
+    getChart: () => chart.current,
+  }));
+  return (
+    <ErrorBoundary errorTemplate={errorTemplate}>
+        {loading && <ChartLoading loadingTemplate={loadingTemplate} />}
+        <div className={className} style={style} ref={container} />
+    </ErrorBoundary>
+  );
 });
 
 export default LineChart;

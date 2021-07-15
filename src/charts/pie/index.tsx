@@ -7,35 +7,35 @@ import ErrorBoundary from '../errorBoundary'
 import ChartLoading from '../util/createLoading'
 
 export interface PieConfig extends G2plotConfig, ContainerConfig<G2plotConfig> {
-    chartRef?: ChartRefConfig
+  chartRef?: ChartRefConfig;
 }
 
 const PieChart = forwardRef((props: PieConfig, ref) => {
-    const {
-        chartRef,
-        style = {
-            height: 'inherit',
-            width: 'inherit',
-        },
-        className,
-        loading,
-        loadingTemplate,
-        errorTemplate,
-        ...rest
-    } = props
-    const { chart, container } = useChart<G2plotPie, PieConfig>(G2plotPie, rest)
-    useEffect(() => {
-        getChart(chartRef, chart.current)
-    }, [chart, chartRef])
-    useImperativeHandle(ref, () => ({
-        getChart: () => chart.current,
-    }))
-    return (
-        <ErrorBoundary errorTemplate={errorTemplate}>
-            {loading && <ChartLoading loadingTemplate={loadingTemplate} />}
-            <div className={className} style={style} ref={container} />
-        </ErrorBoundary>
-    )
+  const {
+    chartRef,
+    style = {
+      height: 'inherit',
+      width: 'inherit',
+    },
+    className,
+    loading,
+    loadingTemplate,
+    errorTemplate,
+    ...rest
+  } = props
+  const { chart, container } = useChart<G2plotPie, PieConfig>(G2plotPie, rest)
+  useEffect(() => {
+    getChart(chartRef, chart.current)
+  }, [chart, chartRef])
+  useImperativeHandle(ref, () => ({
+    getChart: () => chart.current,
+  }))
+  return (
+    <ErrorBoundary errorTemplate={errorTemplate}>
+      {loading && <ChartLoading loadingTemplate={loadingTemplate} />}
+      <div className={className} style={style} ref={container} />
+    </ErrorBoundary>
+  )
 })
 
 export default PieChart
